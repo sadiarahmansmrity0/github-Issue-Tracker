@@ -210,4 +210,104 @@ function handleLogin() {
     `;
   }).join('');
 }
- 
+       async function openIssueModal(id) {
+  const issue = await fetchIssueById(id);
+  if (!issue) return;
+
+  const modal = document.getElementById('issueModal');
+  const content = document.getElementById('modalContent');
+
+  const statusBadge =
+    issue.status === "open"
+      ? `<span class="px-3 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded-full">Opened</span>`
+      : `<span class="px-3 py-1 text-xs font-semibold bg-purple-100 text-purple-700 rounded-full">Closed</span>`;
+
+  const priorityBadge =
+    issue.priority === "high"
+      ? `<span class="px-2 py-1 text-xs font-semibold bg-red-100 text-red-600 rounded">HIGH</span>`
+      : issue.priority === "medium"
+      ? `<span class="px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-700 rounded">MEDIUM</span>`
+      : `<span class="px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-600 rounded">LOW</span>`;
+
+  content.innerHTML = `
+  
+  <div class="space-y-4">
+
+    <!-- Title -->
+    <h2 class="text-xl font-semibold text-gray-800">
+      ${issue.title}
+    </h2>
+
+    <!-- Status Row -->
+    <div class="flex items-center gap-3 text-sm text-gray-500">
+      ${statusBadge}
+      <span>Opened by <span class="font-medium text-gray-700">${issue.author}</span></span>
+      <span>•</span>
+      <span>${new Date(issue.createdAt).toLocaleDateString()}</span>
+    </div>
+
+    <!-- Labels -->
+    <div class="flex gap-2">
+      ${issue.labels
+        .map(
+          label => `
+          <span class="px-3 py-1 text-xs font-medium bg-orange-100 text-orange-600 rounded-full">
+            ${label}
+          </span>`
+        )
+        .join("")}
+    </div>
+
+    <!-- Description -->
+    <p class="text-gray-600 text-sm">
+      ${issue.description}
+    </p>
+
+    <!-- Info Box -->
+    <div class="bg-gray-50 p-4 rounded-lg grid grid-cols-2 gap-6 text-sm">
+
+      <div>
+        <p class="text-gray-500 mb-1">Assignee:</p>
+        <p class="font-medium text-gray-800">
+          ${issue.assignee || "Unassigned"}
+        </p>
+      </div>
+
+      <div>
+        <p class="text-gray-500 mb-1">Priority:</p>
+        ${priorityBadge}
+      </div>
+
+    </div>
+
+  </div>
+  `;
+
+  modal.classList.remove("hidden");
+}
+
+        function closeModal() {
+            document.getElementById('issueModal').classList.add('hidden');
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value;
+            searchIssues(query);
+        }
+   document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('issueModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('issueModal')) {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is already logged in (you could implement session storage)
+        });
