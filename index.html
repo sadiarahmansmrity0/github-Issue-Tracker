@@ -6,7 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>GitHub Issues Trackers</title>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -26,6 +26,30 @@
             background-color: #3b82f6;
             color: white;
         }
+        @media (max-width: 640px) {
+    #issuesGrid {
+        grid-template-columns: 1fr !important;
+    }
+    .active-tab {
+        font-size: 0.875rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+button, 
+input[type="text"],
+input[type="password"] {
+    min-height: 44px;
+}
+#modalContent {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
     </style>
 </head>
 <body class="">
@@ -83,31 +107,31 @@
   <!-- nav -->
   <nav class="bg-white shadow-sm sticky top-0 z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
+      <div class="flex flex-col sm:flex-row justify-between items-center h-auto sm:h-16 py-4 sm:py-0 gap-4">
         
    <!-- logo & title -->
-        <div class="flex items-center space-x-1">
+        <div class="flex items-center space-x-1 w-full sm:w-auto justify-center sm:justify-start">
           <img src="assets/github-logo.png" 
                alt="GitHub Logo" class="w-8 h-8">
           <span class="text-xl font-bold text-gray-800">GitHub Issues Tracker</span>
         </div>
         
         <!-- button -->
-        <div class="flex items-center space-x-2">
+        <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
           <!-- Search Bar -->
-          <div class="relative"> 
+          <div class="relative w-full sm:w-auto"> 
             <button onclick="handleSearch()"
                     class="absolute left-2 top-2 text-gray-400 hover:text-black">
               <i class="fas fa-search"></i>
             </button>
             <input type="text" id="searchInput" placeholder="Search issues..." 
-                   class="w-64 px-4 py-2 pr-16 pl-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-700 outline-none">
+                   class="w-full sm:w-64 px-4 py-2 pr-16 pl-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-700 outline-none">
            
           </div>
           
 
           <button 
-                  class="bg-blue-700 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-800 transition">
+                  class="bg-blue-700 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-800 transition w-full sm:w-auto">
             + New Issue
           </button>
         </div>
@@ -118,17 +142,17 @@
   <!-- mainContent -->
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <!-- Tabs -->
-            <div class="flex space-x-2 mb-6">
-                <button onclick="filterIssues('all')" id="tabAll" class="active-tab px-6 py-2 rounded-lg font-medium transition">All</button>
-                <button onclick="filterIssues('open')" id="tabOpen" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition">Open</button>
-                <button onclick="filterIssues('closed')" id="tabClosed" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition">Closed</button>
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button onclick="filterIssues('all')" id="tabAll" class="active-tab px-4 sm:px-6 py-2 rounded-lg font-medium transition text-sm sm:text-base flex-1 sm:flex-none">All</button>
+                <button onclick="filterIssues('open')" id="tabOpen" class="px-4 sm:px-6 sm:px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition text-sm sm:text-base flex-1 sm:flex-none">Open</button>
+                <button onclick="filterIssues('closed')" id="tabClosed" class="px-4 sm:px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition text-sm sm:text-base flex-1 sm:flex-none">Closed</button>
             </div>
 
             <!-- Stats Bar -->
            <div class="bg-white rounded-lg p-4 mb-6 flex flex-wrap items-center justify-between">
   <!-- Left-->
-           <div class="bg-white rounded-xl p-6 mb-8 flex flex-wrap items-center justify-between shadow-sm border border-gray-100">
-    <div class="flex items-center gap-4">
+           <div class="bg-white rounded-xl p-4 sm:p-6 mb-8 flex flex-col sm:flex-row flex-wrap items-center justify-between shadow-sm border border-gray-100 gap-4">
+    <div class="flex items-center gap-4 w-full sm:w-auto">
         <div class="bg-purple-50 rounded-full p-3">
             <img src="assets/Aperture.png" alt="Icon" class="w-6 h-6">
         </div>
@@ -141,7 +165,7 @@
         </div>
     </div>
 
-    <div class="flex items-center gap-6">
+    <div class="flex items-center gap-6 w-full sm:w-auto justify-center sm:justify-end">
         <div class="flex items-center gap-2">
             <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></div>
             <span class="text-sm font-semibold text-gray-600">Open</span>
@@ -166,20 +190,14 @@
     </div>
 
     <!-- Issue Modal -->
-    <div id="issueModal"
-class="fixed inset-0 bg-black/40 flex items-center justify-center hidden z-50">
-
-  <div class="bg-white rounded-xl w-[500px] p-6 shadow-lg">
-
+   <div id="issueModal" class="fixed inset-0 bg-black/40 flex items-center justify-center hidden z-50 p-4">
+  <div class="bg-white rounded-xl w-full max-w-[90%] sm:max-w-lg md:max-w-[500px] p-4 sm:p-6 shadow-lg max-h-[90vh] overflow-y-auto">
     <div id="modalContent"></div>
-
-    <div class="flex justify-end mt-6">
-      <button onclick="closeModal()"
-      class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">
+    <div class="flex justify-end mt-4 sm:mt-6">
+      <button onclick="closeModal()" class="bg-purple-600 text-white px-4 sm:px-6 py-2 rounded-md hover:bg-purple-700 text-sm sm:text-base w-full sm:w-auto">
         Close
       </button>
     </div>
-
   </div>
 </div>
 <script src="script.js"></script>
