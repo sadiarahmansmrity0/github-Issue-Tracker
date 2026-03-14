@@ -53,17 +53,17 @@
 function filterIssues(filter) {
     currentFilter = filter;
     
-    // Update tab styles
+    
+    
     const tabAll = document.getElementById('tabAll');
     const tabOpen = document.getElementById('tabOpen');
     const tabClosed = document.getElementById('tabClosed');
     
-    // Remove active class
+ 
     tabAll.className = 'px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition';
     tabOpen.className = 'px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition';
     tabClosed.className = 'px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition';
-    
-    // Add active class to selected tab
+   
     if (filter === 'all') {
         tabAll.className = 'active-tab px-6 py-2 rounded-lg font-medium transition';
     } else if (filter === 'open') {
@@ -309,5 +309,5 @@ function handleLogin() {
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if user is already logged in (you could implement session storage)
+            
         });
