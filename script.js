@@ -49,7 +49,7 @@
         showLoading(false);
     }
 }
-// Add this function - it's completely missing from your code
+
 function filterIssues(filter) {
     currentFilter = filter;
     
@@ -58,7 +58,7 @@ function filterIssues(filter) {
     const tabOpen = document.getElementById('tabOpen');
     const tabClosed = document.getElementById('tabClosed');
     
-    // Remove active class from all tabs
+    // Remove active class
     tabAll.className = 'px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition';
     tabOpen.className = 'px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition';
     tabClosed.className = 'px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition';
@@ -152,8 +152,8 @@ function handleLogin() {
 
     const statusIcon =
       issue.status === 'open'
-        ? '<img src="assets/Open-Status.png" class="w-4 h-4">'
-        : '<img src="assets/Closed-Status.png" class="w-4 h-4">';
+        ? `<img src="assets/Open-Status.png" class="w-4 h-4">`
+        : `<class="w-4 h-4"i class="fa-regular fa-circle-check"></i>`;
 
     const formattedDate = new Date(issue.createdAt).toLocaleDateString(
       'en-US',
